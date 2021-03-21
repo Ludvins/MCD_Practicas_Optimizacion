@@ -1,0 +1,113 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=magenta, citecolor=cyan}
+\setlength{\parindent}{0in}
+\usepackage[margin=1in]{geometry}
+\usepackage[english]{babel}
+\usepackage{mathtools}
+\usepackage{palatino}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{engord}
+\usepackage{parskip}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{setspace}
+%\usepackage[center]{caption}
+\usepackage{placeins}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{todonotes}
+\usepackage{pdfpages}
+% \titlespacing*{\subsection}{0pt}{5.5ex}{3.3ex}
+%\titlespacing*{\section}{0pt}{5.5ex}{1ex}
+\usepackage{natbib}
+
+\author{Luis Antonio Ortega Andrés\\Antonio Coín Castro}
+\date{\today}
+\title{Convex optimization \\ \Large Exercises}
+\hypersetup{
+ pdfauthor={Luis Antonio Ortega Andrés, Antonio Coín Castro},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdflang={Spanish}
+ }
+
+\begin{document}
+
+\maketitle
+
+
+\textbf{Exercise 1. }\emph{Show that if \( S \) is an open set, its complement \( S^c \) is closed, and viceversa.}
+
+\emph{Solution. } Given that \( S \) is open, we got that \( \forall x \in S \ \exists \delta > 0 \ : \ B(x, \delta) \subset S\). By definition \( S^c \subset \bar{S^c}\), where
+\[
+     \bar{S^c} =  \{x \ : \ \forall \delta\  B(x, \delta) \cap S^c \neq \emptyset \}.
+\]
+Let \( x \in \bar{S^c} \), then \( \forall \delta > 0 \),
+\[
+     B(x, \delta) \cap S^c \neq \emptyset \implies B(x, \delta) \not \subset S \implies x \notin S \implies x \in S^c.
+\] 
+Therefore, we have shown that \( \bar{S^c} \subset S^c \implies \bar{S^c} = S^c\).\\
+
+\textbf{Exercise 2. }\emph{If \( S_1, s_2 \) are convex subsets, prove that \( S_1 \cup S_2, S_1 + S_2 \) and \( S_1 - S_2 \)  are also convex sets.}
+
+\emph{Solution. } Let us begin with \( S_1 \cup S_2 \), let \( x, x' \in S_1 \cup S_2 \) and \( \lambda \in (0,1) \). We got that
+\[
+     x, x' \in S_1 \cup S_2 \implies  \lambda x + (1-\lambda)x' \in S_1 \text{ and } \lambda x + (1-\lambda)x' \in S_2
+\] 
+Therefore, \(  \lambda x + (1-\lambda)x' \in S_1 \cup S_2 \), meaning the set is convex. 
+
+Consider now \( x, x' \in S_1 + S_2 \), we can decompose them as \(x = x_1 + x_2 \) and \( x' = x_1' + x_2' \), such that
+\[
+     \lambda x + (1-\lambda)x' = \lambda x_1 + (1-\lambda x_2) + \lambda x_1' + (1-\lambda x_2') \in S_1 + S_2.
+\]
+
+Lastly, consider the set \( S_1 - S_2 \), using the same reasoning used in the previous set, it is convex.\\
+
+\textbf{Exercise 3. }\emph{If \( f: S \to \mathbb{R} \) is a convex function on the convex set \( S \), the set \( \{x : \ x \text{ is a minimum of f} \} \) is a convex set.}
+
+\emph{Solution. } Let \( A = \{x \in S: \ x \text{ is a minimum of f} \} \) and consider \( x, x' \in A \), \( \lambda \in (0,1) \), since \( f \) is convex, there is only one minimal value, ie, \( f(x) = f(x') = c \). Using this, \( x\in A \iff f(x) = c \) and \( \not\exists x \in S \) such that \( f(x) < c \). Therefore
+\[
+    f(\lambda x + (1-\lambda)x') \leq \lambda f(x) + (1-\lambda)f(x') = f(x) \implies \lambda x + (1-\lambda)x' \in A.
+\]
+As a result \( A \) is a convex subset of \( S \).\\
+
+\textbf{Exercise 4. }\emph{Let \( f : S \subset \mathbb{R}^d  \to \mathbb{R}\) be a convex function on the convex set \( S \) and we extend it to an \( \hat{f}:\mathbb{R}^d \to \mathbb{R}\) as  }
+\[
+    \bar{f}(x) = \begin{cases}
+        f(x) &\text{ if } x \in S,\\
+        +\infty &\text{ if } x \notin S
+    \end{cases}
+\]
+\emph{Show that \( \hat{f} \) is a convex function on \( \mathbb{R}^D \) }.
+
+\emph{Solution}: Let \( x, x' \in \mathbb{R}^d \) and \( \lambda \in (0,1) \),
+\begin{itemize}
+    \item If \( x,x' \in S \), \( \hat{f}(\lambda x + (1-\lambda)x') \leq \lambda\hat{f}(x) + (1-\lambda)\hat{f}(x') = f(x) \).
+    \item If \( x \notin S \), \( \lambda \hat{f}(x) + (1-\lambda)\hat{f}(x) =+\infty \) and the save happens for \( x' \notin S \).    
+\end{itemize}
+
+\textbf{Exercise 5. }\emph{If \( Q \) is a symmetric, positive definite \( d \times d \) matrix, show that \( f(x) = x^TQx, \ x \in \mathbb{R}^d \), is a convex function.}\\
+
+\emph{Solution. } We know that \( f \) is convex given that its Hessian its semi-definite positive
+\[
+    \nabla^2 f(x) = 2Q \geq 0.
+\]
+
+
+\end{document}
