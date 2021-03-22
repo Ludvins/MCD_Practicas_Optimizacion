@@ -104,10 +104,175 @@ As a result \( A \) is a convex subset of \( S \).\\
 
 \textbf{Exercise 5. }\emph{If \( Q \) is a symmetric, positive definite \( d \times d \) matrix, show that \( f(x) = x^TQx, \ x \in \mathbb{R}^d \), is a convex function.}\\
 
-\emph{Solution. } We know that \( f \) is convex given that its Hessian its semi-definite positive
+\emph{Solution. } Using Taylor's series, we know that \( f(x + h) = f(x) + \nabla f(x)h + o(h) \), then
 \[
-    \nabla^2 f(x) = 2Q \geq 0.
+    \begin{aligned}
+     f(x + h) &= (x+h)^TQ(x+h)= x^TQx + h^TQx +x^TQh + h^TQh\\
+     &= f(x) + x^T(Q + Q^T)h + h^TQh
+    \end{aligned}
+\] 
+Where \( \|h^TQh\| \leq \|Q\|\|h\|^2 = o(h) \). Therefore \( \nabla f(x) = x^T(Q + Q^T) = 2x^TQ \). Reusing the same argument, 
+\[
+     \nabla f (x+h) = 2x^T2 + 2h^TQ = f(x) + 2h^TQ \implies H(f)(x) = 2Q > 0.
 \]
+
+We know use that \( f \) is convex given that its Hessian its semi-definite positive.
+
+\textbf{Exercise 6. }\emph{Given a quadratic form \( q(w) = w^TQw + bw + c \), with \( Q \) a symmetric \( d\times d \) matrix, \( w,b\  d\times 1 \) vectors and \( c \) a real number, derive its gradient and Hessian}.
+
+\emph{Solution. } 
+From the expanded form
+\[
+  q(w) = \sum_{i=1}^{d}\sum_{j=1}^d Q_{i,j} w_iw_j + \sum_{i=1}^db_i w_i + c
+\]
+we can take partial derivatives as
+\[
+    \frac{\partial q}{\partial w_i} = \sum_{j=1}^d 2Q_{i,j}w_j +  b_i \quad \text{ and } \quad \frac{\partial ^2 q}{\partial w_i w_j} = 2Q_{i,j}
+\]
+As a result
+\[
+     \nabla q(w) = \sum_i  \frac{\partial q}{\partial w_i} = \sum_{i=1}^d \sum_{j=1}^d Q_{i,j}w_j + b_i = Qw + b,
+\]
+and 
+\[
+     H(q) = 
+     \begin{pmatrix}  
+        \frac{\partial ^2 q}{\partial w_1 w_1} & \cdots & \frac{\partial ^2 q}{\partial w_1 w_d} \\
+        \vdots & & \vdots \\
+        \frac{\partial ^2 q}{\partial w_d w_1} & \cdots & \frac{\partial ^2 q}{\partial w_d w_d} \\
+     \end{pmatrix} = \begin{pmatrix}
+         2Q_{1,1} & \cdots & 2Q_{1,d}\\
+         \vdots & & \vdots \\
+         2Q_{d,1} & \cdots & 2Q_{d,d}
+     \end{pmatrix} = 2Q
+\]
+
+\textbf{Exercise 7. }\emph{Let \( f:\mathbb{R}^d \to \mathbb{R} \)  be a function and assume that \( epi(f) \subset \mathbb{R}^d \times \mathbb{R} \)  is convex. Prove that then \( f \)  is convex}.
+
+\emph{Solution. }Knowing that
+\[
+     epi(f) = \{(x,t) \ : \ t \geq f(x)\}
+\]
+is the graph above \( f \). Let \( a = (x, f(x)) \) and \( b = (x', f(x')) \) both in \( epi(f) \). Then 
+\[
+     \lambda a + (1-\lambda)b \in epi(f) \implies (\lambda x + (1-\lambda)x', \lambda f(x) + (1-\lambda)f(x')) \in epi(f)
+\]
+Therefore, \( f(\lambda x + (1-\lambda)x') \leq \lambda f(x) + (1-\lambda)f(x')) \implies f\) is convex.\\
+
+
+\textbf{Exercise 8. }\emph{ Let \( f : \mathbb{R}^d \to \mathbb{R} \)  be a convex function. Prove that \( epi(f) \)  is a closed set and that \( (x, f(x)) \in \partial epi(f) \)  }.
+
+\emph{Solution. } Let us show that \( epi(f) \) is closed by showing that \( epi(f) = \bar{epi(f)} \) . 
+
+Let \( (x,t) \in \bar{ epi(f)} \), then \( epi(f) \cap B((x,t), \delta) \neq \emptyset \ \forall \delta > 0 \). Consider that \( (x,t) \notin epi(f) \), then \( t < f(x) \) but given a fixed \( \delta > 0 \)  \(  epi(f) \cap B((x,t), \delta) \neq \emptyset \). Consider the closed and bounded set  \( epi(f) \cap \bar{B((x,t), \delta)} \).
+
+Given that is closed, bounded and non empty, there must exist a minimum distance \( \alpha \)  from \( (x,t) \) to that set, such that for \( \delta < \alpha \), \( epi(f) \cap \bar{B((x,t), \delta)} = \emptyset \), which is not possible. Therefore \( (x,t) \in epi(f) \).\\   
+
+\textbf{Exercise 9. }\emph{Prove that if \( f \)  is strictly convex, it has a unique global minimum}.
+
+\emph{Solution}. Let \( x_1 \) and \( x_2 \) be two local minimum of  \( f \) such that 
+\[
+     f(x_1) \leq f(x_2), \quad x_1 \neq x_2.
+\]
+Given that \( f \) is strictly convex, 
+\[
+     f(\lambda x_1 + (1-\lambda)x_2) < \lambda f(x_1) + (1-\lambda)f(x_2), \quad \lambda \in (0,1).
+\]
+Since \( \lambda >0 \), \( \lambda f(x_1) \leq \lambda f(x_2) \), which implies that 
+\[
+      \lambda f(x_1) + (1-\lambda)f(x_2) \leq  \lambda f(x_2) + (1-\lambda)f(x_2) = f(x_2)
+\]  
+
+Therefore, we have proved that 
+\[
+      f(\lambda x_1 + (1-\lambda)x_2) < f(x_2), \quad \forall \lambda \in (0,1)
+\]
+However, if \( x_2 \) is a local minima, there must exists a neighborhood where every value is higher that \( f(x_2) \) but adjusting the above \( \lambda \) we might get as close as we want to \( x_2 \). For this reason, the initial assumption \( x_1 \neq x_2 \) is false.\\   
+
+\textbf{Exercise 10. }\emph{Let \( f,g: S \subset \mathbb{R}^d \to \mathbb{R} \)  be two convex functions on the convex set \( S \) . Prove that, as subsets, \( \partial(f+g)(x) \subset \partial f(x) + \partial g(x) \). }
+
+\emph{Solution}. 
+
+\[
+     \partial(f + g)(x) = \{c \in \mathbb{R}^d \ : \ (f' + g')(x) \geq f(x) + g(x) + c(x' - x)\ \forall x' \in S\}
+\]
+
+\textbf{Exercise 11. }\emph{Compute the proximal of \( f(x) = 0 \) and of \( f(X) = \frac{1}{2}\|x\|^2 \).}
+
+\emph{Solution. }Recall that \( pox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} \).
+\begin{itemize}
+    \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \}  =  prox_f(x) = argmin_z\{ \frac{1}{2} \|z - x\|^2 \} \), but \( \|z-x\| \) is minimized at \( z = x \):
+    \[
+         prox_f(x) = x
+    \]
+    \item  \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \}  =  prox_f(x) = argmin_z\{\frac{1}{2}\|z\|^2 + \frac{1}{2} \|z - x\|^2 \} \). But 
+    \[
+         \nabla_z \frac{1}{2} \|z\|^2 + \frac{1}{2}\|z-x\|^2 = z + (z - x) = 0 \implies z = \frac{1}{2}x.
+    \]
+    Therefore \( prox_f(x) = \frac{1}{2}x \).
+\end{itemize}
+
+\textbf{Exercise 12. }\emph{Assume that \( f \)  is convex. Prove that for any \( \lambda > 0, \partial(\lambda f)(x) = \lambda \partial f(x) \) as subsets.}
+
+\emph{Solution}. By definition,
+\[
+    \begin{aligned}
+     \partial(\lambda f)(x) &= \{c \in \mathbb{R}^d \ : \ (\lambda f')(x) \geq \lambda f(x) + c(x' - x)\ \forall x' \in S\}\\
+     &= \{\lambda c \in \mathbb{R}^d \ : \  f(x) \geq f(x) + \lambda c(x' - x)\ \forall x' \in S\} \\
+     &= \lambda \partial f(x).
+    \end{aligned}
+\]
+
+
+\textbf{Exercise 13. }\emph{Compute the proximals of the hinge \( f(x) = max\{0, -x\}  \) and the \( \epsilon \)-insensitive \( max\{0, |x| - \epsilon\} \) loss function}.
+
+\emph{Solution. }Recall that \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} \).
+\begin{itemize}
+    \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} = argmin_z\{\max\{0, -z\} + \frac{1}{2} \|z - x\|^2 \} \).
+    
+    Using that 
+        \[
+             \begin{cases}
+                argmin_z\{\frac{1}{2} \|z - x\|^2 \} = x &\text{ if } z \geq 0\\
+                argmin_z\{-z + \frac{1}{2} \|z - x\|^2 \} = x + 1 &\text{ if } z < 0\\
+             \end{cases}
+        \]
+        \[
+             prox_f(x) = x
+        \]
+    \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} = argmin_z\{\max\{0, |z| - \epsilon\} + \frac{1}{2} \|z - x\|^2 \} \)
+    
+    Using that 
+        \[
+             \begin{cases}
+                argmin_z\{\frac{1}{2} \|z - x\|^2 \} = x &\text{ if } |z| \leq \epsilon\\
+                argmin_z\{|z| - \epsilon + \frac{1}{2} \|z - x\|^2 \} =  &\text{ if }   ||z| > \epsilon\\
+             \end{cases}
+        \]
+        \[
+             prox_f(x) = x
+        \]
+
+\end{itemize}
+
+\textbf{Exercise 14. }\emph{If \( p_1,\dots,p_K \) is a probability distribution, prove that its entropy \( H(p_1, \dots, p_K) = - \sum_{i=1}^K p_i \log p_i\) is a concave function. Show also that its maximum is \( \log K \), attained when \( p_i = \frac{1}{K} \forall i \) }.
+
+\emph{Solution. } Given that \( L(p_1,\dots, p_k; \mu) = - \sum_{i=1}^k p_i \log p_i + \mu\left(\sum_{i=1}^k p_i - 1\right) \),
+\[
+     \frac{\partial L}{\partial p_i} = -\log p_i - 1 + \mu \ \forall i=1,\dots,k
+\]
+Resolvemos \( \begin{cases}
+    \log p_i &= \mu - 1, \quad i=1,\dots,k\\
+    \sum p_i &= 1
+\end{cases}  \implies p_i = e^{\mu - 1} \ forall i\), that is, all \( p_i \) are equal
+
+\textbf{Exercise 15. }\emph{We have worked out the dual problem for the soft SVC problem. Do the same for the simpler \textbf{hard} SVC problem}
+\[
+\min_{w,b} \frac{1}{2}\|w\|^2     
+\]
+\emph{subject to \( y^p(wx^p + b) \geq 1 \). What are here the KKT conditions? }
+
+
 
 
 \end{document}
