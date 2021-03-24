@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{grffile}
@@ -38,166 +38,249 @@
 
 \author{Luis Antonio Ortega Andrés\\Antonio Coín Castro}
 \date{\today}
-\title{Convex optimization \\ \Large Exercises}
+\title{Convex Optimization \\ \Large Exercises}
 \hypersetup{
  pdfauthor={Luis Antonio Ortega Andrés, Antonio Coín Castro},
  pdftitle={},
  pdfkeywords={},
  pdfsubject={},
- pdflang={Spanish}
+ pdflang={English}
  }
+
+ \newcommand*{\QED}{\null\nobreak\hfill\ensuremath{\square}}%
 
 \begin{document}
 
 \maketitle
 
 
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 1. }\emph{Show that if \( S \) is an open set, its complement \( S^c \) is closed, and viceversa.}
 
-\emph{Solution. } Given that \( S \) is open, we got that \( \forall x \in S \ \exists \delta > 0 \ : \ B(x, \delta) \subset S\). By definition \( S^c \subset \bar{S^c}\), where
+\emph{Solution.} Suppose $S$ is an open set. We will prove that $S^c$ is closed by showing that it coincides with its closure $\operatorname{cl}(S^c)$. On the one hand, we have by definition that \( S^c \subset \operatorname{cl}({S^c})\), since
 \[
-     \bar{S^c} =  \{x \ : \ \forall \delta\  B(x, \delta) \cap S^c \neq \emptyset \}.
-\]
-Let \( x \in \bar{S^c} \), then \( \forall \delta > 0 \),
-\[
-     B(x, \delta) \cap S^c \neq \emptyset \implies B(x, \delta) \not \subset S \implies x \notin S \implies x \in S^c.
-\] 
-Therefore, we have shown that \( \bar{S^c} \subset S^c \implies \bar{S^c} = S^c\).\\
-
-\textbf{Exercise 2. }\emph{If \( S_1, s_2 \) are convex subsets, prove that \( S_1 \cup S_2, S_1 + S_2 \) and \( S_1 - S_2 \)  are also convex sets.}
-
-\emph{Solution. } Let us begin with \( S_1 \cup S_2 \), let \( x, x' \in S_1 \cup S_2 \) and \( \lambda \in (0,1) \). We got that
-\[
-     x, x' \in S_1 \cup S_2 \implies  \lambda x + (1-\lambda)x' \in S_1 \text{ and } \lambda x + (1-\lambda)x' \in S_2
-\] 
-Therefore, \(  \lambda x + (1-\lambda)x' \in S_1 \cup S_2 \), meaning the set is convex. 
-
-Consider now \( x, x' \in S_1 + S_2 \), we can decompose them as \(x = x_1 + x_2 \) and \( x' = x_1' + x_2' \), such that
-\[
-     \lambda x + (1-\lambda)x' = \lambda x_1 + (1-\lambda x_2) + \lambda x_1' + (1-\lambda x_2') \in S_1 + S_2.
+     \operatorname{cl}(S^c) =  \{x : \ \forall \delta\,  B(x, \delta) \cap S^c \neq \emptyset \}.
 \]
 
-Lastly, consider the set \( S_1 - S_2 \), using the same reasoning used in the previous set, it is convex.\\
+On the other hand, let \( x \in \operatorname{cl}({S^c}) \) and $\delta>0$. Then, we have:
+\begin{equation}
+  \label{eq:1}
+     B(x, \delta) \cap S^c \neq \emptyset \implies B(x, \delta) \not \subset S.
+\end{equation}
 
+But since \( S \) is open, it holds that \( \forall x \in S \ \exists \delta > 0 \ \)  such that \( \ B(x, \delta) \subset S\). Therefore, as $\delta$ was arbitrary in \eqref{eq:1}, necessarily $x\notin S$, and so $x\in S^c$.  As $x$ was also arbitrary, we have shown that $cl(S^c)\subset S^c$, and hence that the complement of an open set is closed, as desired. The converse is obvious by taking complements.\QED\\
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 2. }\emph{If \( S_1, S_2 \) are convex subsets, prove that \( S_1 \cap S_2, S_1 + S_2 \) and \( S_1 - S_2 \) are also convex sets.}
+
+\emph{Solution.} We will begin with \( S_1 \cap S_2 \). Let \( x, x' \in S_1 \cap S_2 \) and \( \lambda \in [0,1] \). By definition of $S_1\cap S_2$ we have $x,x'\in S_1$ and $x,x'\in S_2$, and by convexity it holds that
+\[
+     \lambda x + (1-\lambda)x' \in S_1 \quad \text{ and } \quad  \lambda x + (1-\lambda)x' \in S_2
+\]
+Therefore, \(  \lambda x + (1-\lambda)x' \in S_1 \cap S_2 \), proving that the set is indeed convex.
+
+Consider now \( x, x' \in S_1 + S_2 \). We can decompose them as \(x = x_1 + x_2 \) and \( x' = x_1' + x_2' \), where $x_1, x_1'\in S_1$ and $x_2, x_2'\in S_2$. If $\lambda\in[0,1]$, using the convexity of $S_1$ and $S_2$ we have:
+\begin{align*}
+   \lambda x + (1-\lambda)x' &= \lambda x_1 + \lambda x_2 + x_1' + x_2' - \lambda x_1' - \lambda x_2'\\
+   &= \underbrace{\lambda x_1 + (1-\lambda) x_1'}_{\in S_1} + \underbrace{\lambda x_2 + (1-\lambda) x_2'}_{\in S_2} \in S_1 + S_2.
+\end{align*}
+
+Lastly, the set \( S_1 - S_2 \) is shown to be convex using the same reasoning as we did for $S_1+S_2$.\QED\\
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 3. }\emph{If \( f: S \to \mathbb{R} \) is a convex function on the convex set \( S \), the set \( \{x : \ x \text{ is a minimum of f} \} \) is a convex set.}
 
-\emph{Solution. } Let \( A = \{x \in S: \ x \text{ is a minimum of f} \} \) and consider \( x, x' \in A \), \( \lambda \in (0,1) \), since \( f \) is convex, there is only one minimal value, ie, \( f(x) = f(x') = c \). Using this, \( x\in A \iff f(x) = c \) and \( \not\exists x \in S \) such that \( f(x) < c \). Therefore
+\emph{Solution.} Let \( M(f) = \{x \in S: \ x \text{ is a minimum of f} \} \) and suppose it is non-empty (otherwise there is nothing to prove, since the empty set is convex). Consider \( x, x' \in M(f) \) and \( \lambda \in [0,1] \). Now, let  $c\in \mathbb R$ be the minimal value attained by $f$, so that $f(x)=f(x')=c$. Using this fact and the convexity of $f$, we have:
 \[
-    f(\lambda x + (1-\lambda)x') \leq \lambda f(x) + (1-\lambda)f(x') = f(x) \implies \lambda x + (1-\lambda)x' \in A.
+    f(\lambda x + (1-\lambda)x') \leq \lambda f(x) + (1-\lambda)f(x') = \lambda c + (1-\lambda)c = c,
 \]
-As a result \( A \) is a convex subset of \( S \).\\
+but since $c$ is the minimal value of $f$, we also have $f(\lambda x + (1-\lambda)x') \geq c$, so necessarily $f(\lambda x + (1-\lambda)x')=c$, and hence $\lambda x + (1-\lambda)x' \in M(f)$. As a result, \( M(f) \) is a convex subset of \( S \).\QED\\
 
-\textbf{Exercise 4. }\emph{Let \( f : S \subset \mathbb{R}^d  \to \mathbb{R}\) be a convex function on the convex set \( S \) and we extend it to an \( \hat{f}:\mathbb{R}^d \to \mathbb{R}\) as  }
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 4. }\emph{Let \( f : S \subset \mathbb{R}^d  \to \mathbb{R}\) be a convex function on the convex set \( S \), and suppose we extend it to an \( \hat{f}:\mathbb{R}^d \to \mathbb{R}\) as  }
 \[
-    \bar{f}(x) = \begin{cases}
-        f(x) &\text{ if } x \in S,\\
-        +\infty &\text{ if } x \notin S
+    \hat{f}(x) = \begin{cases}
+        f(x), &\text{ if } x \in S,\\
+        +\infty, &\text{ if } x \notin S.
     \end{cases}
 \]
-\emph{Show that \( \hat{f} \) is a convex function on \( \mathbb{R}^D \) }.
+\emph{Show that \( \hat{f} \) is a convex function on \( \mathbb{R}^d \) }.
 
-\emph{Solution}: Let \( x, x' \in \mathbb{R}^d \) and \( \lambda \in (0,1) \),
+\emph{Solution}. Let \( x, x' \in \mathbb{R}^d \) and \( \lambda \in [0,1] \). There are essentially two possibilities:
 \begin{itemize}
-    \item If \( x,x' \in S \), \( \hat{f}(\lambda x + (1-\lambda)x') \leq \lambda\hat{f}(x) + (1-\lambda)\hat{f}(x') = f(x) \).
-    \item If \( x \notin S \), \( \lambda \hat{f}(x) + (1-\lambda)\hat{f}(x) =+\infty \) and the save happens for \( x' \notin S \).    
+    \item If \( x,x' \in S \), then $\lambda x + (1-\lambda)x' \in S$ by convexity, and looking at the definition of $\hat f$ and using the convexity of $f$, we have:
+     \begin{align*}\hat{f}(\lambda x + (1-\lambda)x') &= f(\lambda x + (1-\lambda)x')\\
+       &\leq \lambda f(x) + (1-\lambda) f(x')\\
+        &= \lambda \hat f(x) + (1-\lambda)\hat f(x'). \end{align*}
+    \item If, say, \( x \notin S \), then \( \lambda \hat{f}(x) + (1-\lambda)\hat{f}(x') =+\infty \), and the condition for the convexity of $\hat f$ is trivially verified, since $\hat f(z) \leq +\infty$ for all $z$. The same happens if \( x' \notin S \).
 \end{itemize}
 
+In any case, the line segment joining any two points on the graph of $\hat f$ lies above the graph between those two points, so $\hat f$ is convex.\QED\\
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 5. }\emph{If \( Q \) is a symmetric, positive definite \( d \times d \) matrix, show that \( f(x) = x^TQx, \ x \in \mathbb{R}^d \), is a convex function.}\\
 
-\emph{Solution. } Using Taylor's series, we know that \( f(x + h) = f(x) + \nabla f(x)h + o(h) \), then
+Let $x,x'\in \mathbb R^d$ and $\lambda\in[0,1]$. We want to show that
 \[
-    \begin{aligned}
-     f(x + h) &= (x+h)^TQ(x+h)= x^TQx + h^TQx +x^TQh + h^TQh\\
-     &= f(x) + x^T(Q + Q^T)h + h^TQh
-    \end{aligned}
-\] 
-Where \( \|h^TQh\| \leq \|Q\|\|h\|^2 = o(h) \). Therefore \( \nabla f(x) = x^T(Q + Q^T) = 2x^TQ \). Reusing the same argument, 
-\[
-     \nabla f (x+h) = 2x^T2 + 2h^TQ = f(x) + 2h^TQ \implies H(f)(x) = 2Q > 0.
+f(\lambda x + (1-\lambda )x')\leq \lambda f(x)+(1-\lambda)f(x'),
 \]
 
-We know use that \( f \) is convex given that its Hessian its semi-definite positive.
+or equivalently, that
+\[
+f(\lambda x + (1-\lambda )x') - \lambda f(x)+(1-\lambda)f(x') \leq 0.
+\]
 
-\textbf{Exercise 6. }\emph{Given a quadratic form \( q(w) = w^TQw + bw + c \), with \( Q \) a symmetric \( d\times d \) matrix, \( w,b\  d\times 1 \) vectors and \( c \) a real number, derive its gradient and Hessian}.
+The result follows after some elementary algebraic manipulations:
+\[
+f(\lambda x + (1-\lambda )x') - \lambda f(x)-(1-\lambda)f(x') =
+\]
+\[
+=\lambda^2x^TQx + 2\lambda(1-\lambda)(x')^TQx + (1-\lambda)^2 (x')^TQx' -\lambda x^TQx - (1-\lambda)(x')^TQx' =
+\]
+\[
+= \lambda(\lambda - 1)\left[x^TQx + (x')^TQx' - 2x^TQx' \right] = \underbrace{\lambda(\lambda - 1)}_{\leq 0}\underbrace{(x-x')^TQ(x-x')}_{> 0} \leq 0,
+\]
 
-\emph{Solution. } 
-From the expanded form
+where in the last inequality we have used that $Q$ is positive definite. Throughout the calculations we have also used that, since $Q$ is symmetric, $(x')^TQx=x^TQx'$.\QED\\
+
+% %\emph{Solution. } Using Taylor's series, we know that \( f(x + h) = f(x) + \nabla f(x)h + o(h) \), then
+% \[
+%     % \begin{aligned}
+%      f(x + h) &= (x+h)^TQ(x+h)= x^TQx + h^TQx +x^TQh + h^TQh\\
+%      &= f(x) + x^T(Q + Q^T)h + h^TQh
+%     \end{aligned}
+% \]
+% Where \( \|h^TQh\| \leq \|Q\|\|h\|^2 = o(h) \). Therefore \( \nabla f(x) = x^T(Q + Q^T) = 2x^TQ \). Reusing the same argument,
+% \[
+%      \nabla f (x+h) = 2x^T2 + 2h^TQ = f(x) + 2h^TQ \implies H(f)(x) = 2Q > 0.
+% \]
+%
+% We know use that \( f \) is convex given that its Hessian its semi-definite positive.
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 6. }\emph{Given a quadratic form \( q(w) = w^TQw + bw + c \), with \( Q \) a symmetric \( d\times d \) matrix, \( w,b\) being \(d\times 1 \) vectors and \( c \) a real number, derive its gradient and Hessian}.
+
+\emph{Solution.}
+Starting from the expanded form
 \[
-  q(w) = \sum_{i=1}^{d}\sum_{j=1}^d Q_{i,j} w_iw_j + \sum_{i=1}^db_i w_i + c
+  q(w) = \sum_{i=1}^{d}\sum_{j=1}^d Q_{ij} w_iw_j + \sum_{i=1}^db_i w_i + c
 \]
-we can take partial derivatives as
+and taking into account that $Q_{ij}=Q_{ji}$, we can easily compute the partial derivatives
 \[
-    \frac{\partial q}{\partial w_i} = \sum_{j=1}^d 2Q_{i,j}w_j +  b_i \quad \text{ and } \quad \frac{\partial ^2 q}{\partial w_i w_j} = 2Q_{i,j}
+    \frac{\partial q(w)}{\partial w_i} = 2Q_{ii}w_i + \sum_{\substack{j=1\\j\neq i}}^d w_j(Q_{ij}+Q_{ji}) + b_i = \sum_{j=1}^d 2Q_{ij}w_j +  b_i, \quad i=1,\dots, d,
 \]
-As a result
+
+and
 \[
-     \nabla q(w) = \sum_i  \frac{\partial q}{\partial w_i} = \sum_{i=1}^d \sum_{j=1}^d Q_{i,j}w_j + b_i = Qw + b,
+\frac{\partial ^2 q(w)}{\partial w_i \partial w_j} = 2Q_{ij}, \quad i,j=1,\dots, d.
 \]
-and 
+As a result, we have
 \[
-     H(q) = 
-     \begin{pmatrix}  
-        \frac{\partial ^2 q}{\partial w_1 w_1} & \cdots & \frac{\partial ^2 q}{\partial w_1 w_d} \\
+     \nabla q(w) = \left(\frac{\partial q(w)}{\partial w_1},\dots, \frac{\partial q(w)}{\partial w_d}\right)^T = 2\left(\sum_{j=1}^d Q_{1j}w_j, \dots, \sum_{j=1}^d Q_{dj}w_j   \right)^T + (b_1,\dots, b_d)^T = 2Qw + b,
+\]
+
+and
+\[
+     Hq(w) =
+     \begin{pmatrix}
+        \dfrac{\partial ^2 q(w)}{\partial w_1 \partial w_1} & \cdots & \dfrac{\partial ^2 q(w)}{\partial w_1 \partial w_d} \\
         \vdots & & \vdots \\
-        \frac{\partial ^2 q}{\partial w_d w_1} & \cdots & \frac{\partial ^2 q}{\partial w_d w_d} \\
+        \dfrac{\partial ^2 q(w)}{\partial w_d \partial w_1} & \cdots & \dfrac{\partial ^2 q(w)}{\partial w_d \partial w_d} \\
      \end{pmatrix} = \begin{pmatrix}
-         2Q_{1,1} & \cdots & 2Q_{1,d}\\
+         2Q_{11} & \cdots & 2Q_{1d}\\
          \vdots & & \vdots \\
-         2Q_{d,1} & \cdots & 2Q_{d,d}
-     \end{pmatrix} = 2Q
-\]
+         2Q_{d1} & \cdots & 2Q_{dd}
+     \end{pmatrix} = 2Q.
+\]\QED
 
+\vspace{1em}
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 7. }\emph{Let \( f:\mathbb{R}^d \to \mathbb{R} \)  be a function and assume that \( epi(f) \subset \mathbb{R}^d \times \mathbb{R} \)  is convex. Prove that then \( f \)  is convex}.
 
-\emph{Solution. }Knowing that
+\emph{Solution.} Recall that in this case
 \[
-     epi(f) = \{(x,t) \ : \ t \geq f(x)\}
+     \operatorname{epi}(f) = \{(x,t) \in  \mathbb R^d\times \mathbb R: \ t \geq f(x)\}
 \]
-is the graph above \( f \). Let \( a = (x, f(x)) \) and \( b = (x', f(x')) \) both in \( epi(f) \). Then 
+is the graph above \( f \). Let $x,x'\in \mathbb R^d$ and consider \( a = (x, f(x)) \) and \( b = (x', f(x')) \), observing that both of them are in \( \operatorname{epi}(f) \). Then, since $\operatorname{epi}(f)$ is convex, for $\lambda \in [0,1]$ we have that $\lambda a + (1-\lambda)b \in \operatorname{epi}(f)$, which in turn implies that
 \[
-     \lambda a + (1-\lambda)b \in epi(f) \implies (\lambda x + (1-\lambda)x', \lambda f(x) + (1-\lambda)f(x')) \in epi(f)
+(\lambda x + (1-\lambda)x', \, \lambda f(x) + (1-\lambda)f(x')) \in \operatorname{epi}(f).
 \]
-Therefore, \( f(\lambda x + (1-\lambda)x') \leq \lambda f(x) + (1-\lambda)f(x')) \implies f\) is convex.\\
+
+Therefore, by definition of the epigraph, \( f(\lambda x + (1-\lambda)x') \leq \lambda f(x) + (1-\lambda)f(x')\), and hence $f$ is convex.\QED\\
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 8.} \emph{Let \( f : \mathbb{R}^d \to \mathbb{R} \) be a convex function. Prove that \( \operatorname{epi}(f) \) is a closed set and that \( (x, f(x)) \in \partial \operatorname{epi}(f) \)  }.
+
+\emph{Solution.} Let us show first that \( \operatorname{epi}(f)  \) is closed. There are two different approaches:
+
+\begin{itemize}
+  \item We could use the well-known fact that convex functions on open sets are continuous, and the characterization of closed sets as sets that contain all the limiting points of sequences in them. Indeed, if $\{(x_n, t_n)\}\subset \operatorname{epi}(f)$ with $(x_n, t_n)\to (x, t)$, we have:
+  \[
+  f(x_n) \leq t_n \implies f(x)=\lim_{n\to\infty} f(x_n) \leq \lim_{\n\to\infty} t_n = t \implies (x, t) \in \operatorname{epi}(f),
+  \]
+  where the limit can be taken inside the function argument by continuity.
+\item Alternatively, we could show that \( \operatorname{epi}(f)  = \operatorname{cl}(\operatorname{epi}(f) ) \). To prove the non-trivial inclusion, let \( (x,t) \in \operatorname{cl}(\operatorname{epi}(f) ) \), which means that
+\begin{equation}
+  \label{eq:8}
+\operatorname{epi}(f) \cap B((x,t), \delta) \neq \emptyset \ \ \forall \delta > 0.
+\end{equation}
+
+Suppose by contradiction that $(x, t) \notin \operatorname{epi}(f)$ and observe that since $f$ is convex, $\operatorname{epi}(f)$ is also convex (the proof is straightforward and similar to that of Exercise 7). Therefore, by the Projection Theorem\footnote{We only need the existence part, which follows directly from Weierstrass' Theorem applied to the continuous function $z\mapsto \lVert z - x \rVert$ on the compact set $\{x' \in \operatorname{cl}(\operatorname{epi}(f)): \ \lVert x' - x \rVert \leq \lVert z - x \rVert\}$ for a fixed $z\in \operatorname{epi}(f)$.} a minimum distance $\alpha > 0$ from $(x, t)$ to $\operatorname{epi}(f)$ is attained, and so it holds that
+\[
+\operatorname{epi}(f) \cap B((x, t), \alpha/2) = \emptyset,
+\]
+contradicting \eqref{eq:8}.
+\end{itemize}
+
+Now, it is obvious that $(x, f(x))\in \operatorname{epi}(f)=\operatorname{cl}(\operatorname{epi}(f) )$, since $f(x)\geq f(x)$. To show that $(x, f(x))\in \partial \operatorname{epi}(f)$, it suffices to show that it doesn't belong to $\operatorname{int}(\operatorname{epi}(f))$, since
+\[
+\partial \operatorname{epi}(f) =\operatorname{cl}(\operatorname{epi}(f) ) - \operatorname{int}(\operatorname{epi}(f)).
+\]
+
+Indeed, if it weren't the case we could find a $\delta > 0$ such that
+\[
+B((x, f(x)), \delta) \subset \operatorname{epi}(f),
+\]
+
+so it would hold that, for example, $(x, f(x)-\delta/2) \in \operatorname{epi}(f)$. But by definition of the epigraph, this means that $f(x)\leq f(x) - \delta/2$, which is a contradiction given that $\delta>0$.\QED\\
 
 
-\textbf{Exercise 8. }\emph{ Let \( f : \mathbb{R}^d \to \mathbb{R} \)  be a convex function. Prove that \( epi(f) \)  is a closed set and that \( (x, f(x)) \in \partial epi(f) \)  }.
 
-\emph{Solution. } Let us show that \( epi(f) \) is closed by showing that \( epi(f) = \bar{epi(f)} \) . 
-
-Let \( (x,t) \in \bar{ epi(f)} \), then \( epi(f) \cap B((x,t), \delta) \neq \emptyset \ \forall \delta > 0 \). Consider that \( (x,t) \notin epi(f) \), then \( t < f(x) \) but given a fixed \( \delta > 0 \)  \(  epi(f) \cap B((x,t), \delta) \neq \emptyset \). Consider the closed and bounded set  \( epi(f) \cap \bar{B((x,t), \delta)} \).
-
-Given that is closed, bounded and non empty, there must exist a minimum distance \( \alpha \)  from \( (x,t) \) to that set, such that for \( \delta < \alpha \), \( epi(f) \cap \bar{B((x,t), \delta)} = \emptyset \), which is not possible. Therefore \( (x,t) \in epi(f) \).\\   
-
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 9. }\emph{Prove that if \( f \)  is strictly convex, it has a unique global minimum}.
 
-\emph{Solution}. Let \( x_1 \) and \( x_2 \) be two local minimum of  \( f \) such that 
-\[
-     f(x_1) \leq f(x_2), \quad x_1 \neq x_2.
-\]
-Given that \( f \) is strictly convex, 
-\[
-     f(\lambda x_1 + (1-\lambda)x_2) < \lambda f(x_1) + (1-\lambda)f(x_2), \quad \lambda \in (0,1).
-\]
-Since \( \lambda >0 \), \( \lambda f(x_1) \leq \lambda f(x_2) \), which implies that 
-\[
-      \lambda f(x_1) + (1-\lambda)f(x_2) \leq  \lambda f(x_2) + (1-\lambda)f(x_2) = f(x_2)
-\]  
+\emph{Solution}. We will prove that for strictly convex functions defined on convex sets, there can be at most one global minimum. Note that it is still possible for a strictly convex function to have no minima (consider the function $x\mapsto e^x$ on $\mathbb R$).
 
-Therefore, we have proved that 
+Let $S\subset \mathbb R^d$ be convex and $f:S \to \mathbb R$ be strictly convex. We argue by contradiction and suppose $x^*, \tilde x \in S$ are two \textit{distinct} global minimums of $f$, that is,
 \[
-      f(\lambda x_1 + (1-\lambda)x_2) < f(x_2), \quad \forall \lambda \in (0,1)
-\]
-However, if \( x_2 \) is a local minima, there must exists a neighborhood where every value is higher that \( f(x_2) \) but adjusting the above \( \lambda \) we might get as close as we want to \( x_2 \). For this reason, the initial assumption \( x_1 \neq x_2 \) is false.\\   
-
-\textbf{Exercise 10. }\emph{Let \( f,g: S \subset \mathbb{R}^d \to \mathbb{R} \)  be two convex functions on the convex set \( S \) . Prove that, as subsets, \( \partial(f+g)(x) \subset \partial f(x) + \partial g(x) \). }
-
-\emph{Solution}. 
-
-\[
-     \partial(f + g)(x) = \{c \in \mathbb{R}^d \ : \ (f' + g')(x) \geq f(x) + g(x) + c(x' - x)\ \forall x' \in S\}
+x^\ast \neq \tilde x \quad \text{and} \quad f(x^*)=f(\tilde x) \leq f(x) \quad \forall x \in S.
 \]
 
-\textbf{Exercise 11. }\emph{Compute the proximal of \( f(x) = 0 \) and of \( f(X) = \frac{1}{2}\|x\|^2 \).}
+Now, since $f$ is strictly convex, for any $\lambda \in (0,1)$ we have
+\[
+f(\lambda x^* + (1-\lambda)\tilde x) < \lambda f(x^*) + (1-\lambda)f(\tilde x) = f(x^\ast),
+\]
+
+which contradicts the fact that $x^*$ is a global minimum of $f$. Therefore, $f$ can have at most one global minimum.\QED\\
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 10. }\emph{Let \( f,g: S \subset \mathbb{R}^d \to \mathbb{R} \)  be two convex functions on the convex set \( S \) . Prove that, as subsets, \( \partial(f+g)(x) \subset \partial f(x) + \partial g(x) \) for any $x\in S$. }
+
+\emph{Solution}. This is (part of) the statement of the Moreau-Rockafellar Theorem that we saw in class. This is the hard part, since the other inclusion can be easily proved, and we do so here for completeness.\newpage
+
+Fix $x\in S$ and let $c\in \partial f(x) + \partial g(x)$. We can decompose it as $c=c_1+c_2$ with $c_1\in\partial f(x)$ and $c_2\in \partial g(x)$. Then, by definition of subgradient and the distributive property of the scalar product, we have
+\begin{align*}
+\forall x' \in S \quad (f+g)(x') &= f(x') + g(x')\\
+&\geq f(x) + g(x) + c_1(x'-x) + c_2(x'-x)\\
+&= (f+g)(x) + c(x'-x),
+\end{align*}
+so that $c\in \partial(f+g)(x)$. The proof of the other inclusion can be consulted in the book \textit{Convex Analysis} by Rockafellar himself\footnote{Theorem 23.8 in Rockafellar, R. T. (1997). \textit{Convex analysis} (Vol. 36), p. 223. Princeton University Press.}, in which ...
+
+Prior to consulting any references we tried to prove the theorem by ourselves, and came up with the following incomplete proof. ......
+
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 11. }\emph{Compute the proximal of \( f(x) = 0 \) and of \( g(x) = \frac{1}{2}\|x\|^2 \).}
 
 \emph{Solution. }Recall that \( pox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} \).
 \begin{itemize}
@@ -205,7 +288,7 @@ However, if \( x_2 \) is a local minima, there must exists a neighborhood where 
     \[
          prox_f(x) = x
     \]
-    \item  \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \}  =  prox_f(x) = argmin_z\{\frac{1}{2}\|z\|^2 + \frac{1}{2} \|z - x\|^2 \} \). But 
+    \item  \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \}  =  prox_f(x) = argmin_z\{\frac{1}{2}\|z\|^2 + \frac{1}{2} \|z - x\|^2 \} \). But
     \[
          \nabla_z \frac{1}{2} \|z\|^2 + \frac{1}{2}\|z-x\|^2 = z + (z - x) = 0 \implies z = \frac{1}{2}x.
     \]
@@ -229,8 +312,8 @@ However, if \( x_2 \) is a local minima, there must exists a neighborhood where 
 \emph{Solution. }Recall that \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} \).
 \begin{itemize}
     \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} = argmin_z\{\max\{0, -z\} + \frac{1}{2} \|z - x\|^2 \} \).
-    
-    Using that 
+
+    Using that
         \[
              \begin{cases}
                 argmin_z\{\frac{1}{2} \|z - x\|^2 \} = x &\text{ if } z \geq 0\\
@@ -241,8 +324,8 @@ However, if \( x_2 \) is a local minima, there must exists a neighborhood where 
              prox_f(x) = x
         \]
     \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} = argmin_z\{\max\{0, |z| - \epsilon\} + \frac{1}{2} \|z - x\|^2 \} \)
-    
-    Using that 
+
+    Using that
         \[
              \begin{cases}
                 argmin_z\{\frac{1}{2} \|z - x\|^2 \} = x &\text{ if } |z| \leq \epsilon\\
@@ -268,7 +351,7 @@ Resolvemos \( \begin{cases}
 
 \textbf{Exercise 15. }\emph{We have worked out the dual problem for the soft SVC problem. Do the same for the simpler \textbf{hard} SVC problem}
 \[
-\min_{w,b} \frac{1}{2}\|w\|^2     
+\min_{w,b} \frac{1}{2}\|w\|^2
 \]
 \emph{subject to \( y^p(wx^p + b) \geq 1 \). What are here the KKT conditions? }
 
