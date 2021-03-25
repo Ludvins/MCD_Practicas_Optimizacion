@@ -97,7 +97,7 @@ Lastly, the set \( S_1 - S_2 \) is shown to be convex using the same reasoning a
 but since $c$ is the minimal value of $f$, we also have $f(\lambda x + (1-\lambda)x') \geq c$, so necessarily $f(\lambda x + (1-\lambda)x')=c$, and hence $\lambda x + (1-\lambda)x' \in M(f)$. As a result, \( M(f) \) is a convex subset of \( S \).\QED\\
 
 \textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
-\textbf{Exercise 4. }\emph{Let \( f : S \subset \mathbb{R}^d  \to \mathbb{R}\) be a convex function on the convex set \( S \), and suppose we extend it to an \( \hat{f}:\mathbb{R}^d \to \mathbb{R}\) as  }
+\textbf{Exercise 4. }\emph{Let \( f : S \subset \mathbb{R}^d  \to \mathbb{R}\) be a convex function on the convex set \( S \), and suppose we extend it to \( \hat{f}:\mathbb{R}^d \to \mathbb{R}\) as  }
 \[
     \hat{f}(x) = \begin{cases}
         f(x), &\text{ if } x \in S,\\
@@ -217,7 +217,7 @@ Therefore, by definition of the epigraph, \( f(\lambda x + (1-\lambda)x') \leq \
 \begin{itemize}
   \item We could use the well-known fact that convex functions on open sets are continuous, and the characterization of closed sets as sets that contain all the limiting points of sequences in them. Indeed, if $\{(x_n, t_n)\}\subset \operatorname{epi}(f)$ with $(x_n, t_n)\to (x, t)$, we have:
   \[
-  f(x_n) \leq t_n \implies f(x)=\lim_{n\to\infty} f(x_n) \leq \lim_{\n\to\infty} t_n = t \implies (x, t) \in \operatorname{epi}(f),
+  f(x_n) \leq t_n \implies f(x)=\lim_{n\to\infty} f(x_n) \leq \lim_{n\to\infty} t_n = t \implies (x, t) \in \operatorname{epi}(f),
   \]
   where the limit can be taken inside the function argument by continuity.
 \item Alternatively, we could show that \( \operatorname{epi}(f)  = \operatorname{cl}(\operatorname{epi}(f) ) \). To prove the non-trivial inclusion, let \( (x,t) \in \operatorname{cl}(\operatorname{epi}(f) ) \), which means that
@@ -287,7 +287,7 @@ Fixing $x$ and assuming $c\in \partial(f+g)(x)$, two auxiliary sets are defined,
 
 They are easily shown to be disjoint, non-empty and convex, so the separation theorem applies and there exists a hyperplane defined by coefficients $a$ and $b$ that separates them. Next, $b$ is shown to be negative via contradiction, and then the desired decomposition is defined as
 \[
-c_2=\frac{-a}{b},\quad c_1=c-c_2.
+c_2=\frac{a}{b},\quad c_1=c-c_2.
 \]
 Lastly, these coefficients are shown to verify $c_1\in\partial f(x)$ and $c_2\in\partial g(x)$.
 
@@ -325,9 +325,9 @@ The strategy will be to compute and minimize this expression in each case.
 \emph{Solution}. Instead of showing the double inclusion, we prove the equivalence directly. We have:
 \[
     \begin{align*}
-     \partial(\lambda f)(x) &= \{c \in \mathbb{R}^d: \ \lambda f(x') \geq \lambda f(x) + c(x' - x)\ \forall x' \in S\} \quad &\text{[Definition]}\\
-     &= \{c \in \mathbb{R}^d \ : \  f(x') \geq f(x) + \lambda^{-1} c(x' - x)\ \forall x' \in S\}\quad &\text{[Divide by $\lambda>0$]} \\
-     &= \{\lambda c \in \mathbb{R}^d \ : \  f(x') \geq f(x) + c(x' - x)\ \forall x' \in S\}\quad &\text{[Rename]} \\
+     \partial(\lambda f)(x) &= \{c \in \mathbb{R}^d: \ \lambda f(x') \geq \lambda f(x) + c(x' - x)\ \ \forall x' \in S\} \quad &\text{[Definition]}\\
+     &= \{c \in \mathbb{R}^d : \  f(x') \geq f(x) + \lambda^{-1} c(x' - x)\ \ \forall x' \in S\}\quad &\text{[Divide by $\lambda>0$]} \\
+     &= \{\lambda c \in \mathbb{R}^d : \  f(x') \geq f(x) + c(x' - x)\ \ \forall x' \in S\}\quad &\text{[Rename]} \\
      &= \lambda \partial f(x).\quad &\text{[Definition]}
    \end{align*}
 \]
@@ -347,7 +347,7 @@ The strategy will be to compute and minimize this expression in each case.
                 -z + \frac{1}{2} (z - x)^2, &\text{ if } z \leq 0.\\
              \end{cases}
         \]
-        If the minimizer is attained at $z> 0$, then clearly $z=x$, meaning that $\operatorname{prox}_f(x)=x$ for $x\geq 0$. If it is attained at $z<0$, we have:
+        If the minimizer is attained at $z> 0$, then clearly $z=x$, meaning that $\operatorname{prox}_f(x)=x$ for $x> 0$. If it is attained at $z<0$, we have:
         \[
         0=h'(z)= -1 + z - x \implies z = x+1,
         \]
@@ -368,23 +368,23 @@ The strategy will be to compute and minimize this expression in each case.
              \end{cases}
         \]
 
-Following the same reasoning as before, it is immediate to see that $\operatorname{prox}_g(x)=x$ for $|x|<\epsilon$. If the minimizer is attained when $z>\epsilon$, we have $0=h'(z)=1+z-x$, so $z=x-1$, and $\operatorname{prox}_g(x)=x-1$ for $x>1+\epsilon$. Similarly, $\operatorname{prox}_g(x)=x+1$ for $x< -\epsilon-1$.
+Following the same reasoning as before, it is immediate to see that $\operatorname{prox}_g(x)=x$ for $|x|<\epsilon$. If the minimizer is attained when $z>\epsilon$, we have $0=h'(z)=1+z-x$, so $z=x-1$, and $\operatorname{prox}_g(x)=x-1$ for $x>1+\epsilon$. Similarly, $\operatorname{prox}_g(x)=x+1$ for $x< -1-\epsilon$.
 
-For the points of non-differentiability, observe that if $\epsilon<x<1+\epsilon$ the minimizer is attained at $z=\epsilon$ (the only possible value), while for $-1-\epsilon<x<\epsilon$ it is attained at $z=-\epsilon$. Thus, we have
+For the points of non-differentiability, observe that if $\epsilon<x<1+\epsilon$ the minimizer is attained at $z=\epsilon$ (the only possible value), while for $-1-\epsilon<x<-\epsilon$ it is attained at $z=-\epsilon$. Thus, we have
 
         \[
              \operatorname{prox}_f(x)= \begin{cases}
-               x+1, & \text{ if } x< - 1 - \epsilon,\\
-               -\epsilon,  & \text{ if } -1-\epsilon<x<\epsilon,\\
-               x, & \text{ if } |x| < \epsilon,\\
-               \epsilon,  & \text{ if } \epsilon < x < 1+\epsilon,\\
-               x-1, & \text{ if } x>1+\epsilon.
+               x+1, & \text{ if } x\leq - 1 - \epsilon,\\
+               -\epsilon,  & \text{ if } -1-\epsilon\leq x\leq -\epsilon,\\
+               x, & \text{ if } |x| \leq \epsilon,\\
+               \epsilon,  & \text{ if } \epsilon \leq x \leq 1+\epsilon,\\
+               x-1, & \text{ if } x \geq 1+\epsilon.
            \end{cases}
         \]
-        \QED
 \end{itemize}
 
-\vspace{0.5em}
+\vspace{1em}
+
 \textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 14. }\emph{If \( (p_1,\dots,p_n) \) is a probability distribution, prove that its entropy \( H(p_1, \dots, p_n) = - \sum_{i=1}^n p_i \log p_i\) is a concave function. Show also that its maximum is \( \log n \), attained when \( p_i = \frac{1}{n}\) for all $i$}.
 
@@ -405,7 +405,7 @@ where the restriction $\sum p_i=1$ appears because the $p_i$ are a probability d
      \frac{\partial L}{\partial p_i} = -\log p_i - 1 + \mu, \ \  i=1,\dots,n \quad \text{and} \quad \frac{\partial L}{\partial \mu} =\sum_{i=1}^n p_i - 1.
 \]
 
-To find the points where all derivatives vanish simultaneously, we have to solve the system
+To find the point where all derivatives vanish simultaneously, we have to solve the system
 \[\begin{cases}
     \log p_i &= \mu - 1, \quad i=1,\dots,n,\\
     \sum p_i &= 1.
@@ -428,7 +428,7 @@ H(1/n,\dots, 1/n) = -\frac{1}{n}\sum_{i=1}^n \log{\frac{1}{n}} = \frac{n\log n}{
 
 \textit{Solution.} In this case, the Lagrangian is
 \[
-L(w, b; \alpha)=\frac{1}{2}\|w\|^2 + \sum_{p} \alpha_p(1-y_p(w^Tx_p+b))
+L(w, b; \alpha)=\frac{1}{2}\|w\|^2 + \sum_{p} \alpha_p(1-y_p(w^Tx_p+b)),
 \]
 
 with $\alpha_p\geq 0$. To get the dual function we solve $\nabla_w L = 0$ and $\frac{\partial L}{\partial b}=0$, which yields:
@@ -447,13 +447,11 @@ Substituting both expressions back in the Lagrangian, we arrive at the dual func
 &= -\frac{1}{2}\alpha^TQ\alpha + \alpha^T\mathbf{1},
 \end{align*}
 
-subject to $\sum_p \alpha_p y_p=0$ and $\alpha_p\geq 0$ for all $p$. In the above expression, $Q$ is the symmetric matrix given by $Q_{pq}=y_py_qx_p^Tx_q$, and $\mathbf{1}=(1,\dots,1)^T$. Flipping the sign to get a minimization problem, the dual problem has the following expression:
-\[
-
+subject to $\sum_p \alpha_p y_p=0$ and $\alpha_p\geq 0$ for all $p$. In the above expression, $Q$ is the symmetric matrix given by $Q_{pq}=y_py_qx_p^Tx_q$, $\alpha=(\alpha_1,\dots,\alpha_p)^T$ and $\mathbf{1}=(1,\dots,1)^T$. Flipping the sign to get a minimization problem, the dual problem has the following expression:
 \[
 \min_{\alpha\in\mathbb R^N} \left\{\frac{1}{2}\alpha^T Q \alpha - \alpha^T \mathbf{1}\right\} \quad \text{subject to} \quad \begin{cases}
-  \alpha^Ty=0,\\
-  \alpha_p \geq 0, & p=1,\dots, N.
+\displaystyle \sum_p \alpha_p y_p=0,\\
+  \alpha_p \geq 0, \ \ p=1,\dots, N.
 \end{cases}
 \]
 
@@ -461,10 +459,10 @@ The KKT conditions in this case are:
 \[
 \begin{cases}
 \displaystyle  w^* = \sum_{p}\alpha^*_p y_p x_p,\\
-\alpha_p^*(1 - y_p(w^Tx_p + b)) =0, & p=1,\dots,N.
+\alpha_p^*(1 - y_p((w^*)^Tx_p + b^*)) =0, \ \ p=1,\dots,N.
 \end{cases}
 \]
 
-The first one allows us to recover the primal solution from the dual one, and the rest are useful to define the support vectors: those points $x_p$ for which $\alpha^*_p>0$ must necessarily be in one of the supporting hyperplanes $w^Tx_p + b=\pm 1$ (assuming labels $y_p=\pm 1$). Looking at the first equation again, we can also say that the points for which $\alpha^*_p=0$ have no impact on the model.
+The first one allows us to recover the primal solution from the dual one, and the rest are useful to define the support vectors: those points $x_p$ for which $\alpha^*_p>0$ must necessarily be in one of the supporting hyperplanes $(w^*)^Tx_p + b^*=\pm 1$ (assuming labels $y_p=\pm 1$). Looking at the first condition again, we can also say that the points for which $\alpha^*_p=0$ have no impact on the model.
 \QED
 \end{document}
