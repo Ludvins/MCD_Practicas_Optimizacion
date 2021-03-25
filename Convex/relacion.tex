@@ -277,77 +277,118 @@ Fix $x\in S$ and let $c\in \partial f(x) + \partial g(x)$. We can decompose it a
 \end{align*}
 so that $c\in \partial(f+g)(x)$. The proof of the other inclusion can be consulted in the book \textit{Convex Analysis} by Rockafellar himself\footnote{Theorem 23.8 in Rockafellar, R. T. (1997). \textit{Convex analysis} (Vol. 36), p. 223. Princeton University Press.}, in which ...
 
-Prior to consulting any references we tried to prove the theorem by ourselves, and came up with the following incomplete proof. ......
+Prior to consulting any references we tried to prove the theorem by ourselves, and came up with the following incomplete proof. ......\\
 
 \textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 11. }\emph{Compute the proximal of \( f(x) = 0 \) and of \( g(x) = \frac{1}{2}\|x\|^2 \).}
 
-\emph{Solution. }Recall that \( pox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} \).
+\emph{Solution.} Recall that the proximal operator can be expressed as
+\[ \operatorname{prox}_f(x) = \arg\min_z\left\{f(z) + \frac{1}{2} \|z - x\|^2 \right\}. \]
+
+The strategy will be to compute and minimize this expression in each case.
 \begin{itemize}
-    \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \}  =  prox_f(x) = argmin_z\{ \frac{1}{2} \|z - x\|^2 \} \), but \( \|z-x\| \) is minimized at \( z = x \):
+    \item On the one hand, we have \( \operatorname{prox}_f(x) = \arg\min_z\left\{ \frac{1}{2} \|z - x\|^2 \right\} \), but \( \|z-x\|^2 \) is clearly minimized at \( z = x \), so $\operatorname{prox}_f(x)=x$ for all $x$.
+    \item  On the other hand, \( \operatorname{prox}_g(x) = \arg\min_z\{\frac{1}{2}\|z\|^2 + \frac{1}{2} \|z - x\|^2 \}\). We know that for differentiable functions the minimizers obey the first order condition $\nabla =0$, so:
     \[
-         prox_f(x) = x
+         0=\nabla_z \left(\frac{1}{2} \|z\|^2 + \frac{1}{2}\|z-x\|^2\right) = z + z - x\implies z = \frac{1}{2}x.
     \]
-    \item  \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \}  =  prox_f(x) = argmin_z\{\frac{1}{2}\|z\|^2 + \frac{1}{2} \|z - x\|^2 \} \). But
-    \[
-         \nabla_z \frac{1}{2} \|z\|^2 + \frac{1}{2}\|z-x\|^2 = z + (z - x) = 0 \implies z = \frac{1}{2}x.
-    \]
-    Therefore \( prox_f(x) = \frac{1}{2}x \).
+    The point $x/2$ is indeed a minimizer of our function in $z$, for example because its Hessian matrix is $2I$, which is positive definite. Therefore, \( \operatorname{prox}_g(x) = x/2 \) for all $x$.\\
 \end{itemize}
 
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 12. }\emph{Assume that \( f \)  is convex. Prove that for any \( \lambda > 0, \partial(\lambda f)(x) = \lambda \partial f(x) \) as subsets.}
 
-\emph{Solution}. By definition,
+\emph{Solution}. Instead of showing the double inclusion, we prove the equivalence directly. We have:
 \[
-    \begin{aligned}
-     \partial(\lambda f)(x) &= \{c \in \mathbb{R}^d \ : \ (\lambda f')(x) \geq \lambda f(x) + c(x' - x)\ \forall x' \in S\}\\
-     &= \{\lambda c \in \mathbb{R}^d \ : \  f(x) \geq f(x) + \lambda c(x' - x)\ \forall x' \in S\} \\
-     &= \lambda \partial f(x).
-    \end{aligned}
+    \begin{align*}
+     \partial(\lambda f)(x) &= \{c \in \mathbb{R}^d: \ \lambda f(x') \geq \lambda f(x) + c(x' - x)\ \forall x' \in S\} \quad &\text{[Definition]}\\
+     &= \{c \in \mathbb{R}^d \ : \  f(x') \geq f(x) + \lambda^{-1} c(x' - x)\ \forall x' \in S\}\quad &\text{[Divide by $\lambda>0$]} \\
+     &= \{\lambda c \in \mathbb{R}^d \ : \  f(x') \geq f(x) + c(x' - x)\ \forall x' \in S\}\quad &\text{[Rename]} \\
+     &= \lambda \partial f(x).\quad &\text{[Definition]}
+   \end{align*}
 \]
+\QED
 
+\vspace{.5em}
 
-\textbf{Exercise 13. }\emph{Compute the proximals of the hinge \( f(x) = max\{0, -x\}  \) and the \( \epsilon \)-insensitive \( max\{0, |x| - \epsilon\} \) loss function}.
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 13. }\emph{Compute the proximals of the hinge \( f(x) = max\{0, -x\}  \) and the \( \epsilon \)-insensitive \( g(x)=max\{0, |x| - \epsilon\} \) loss functions}.
 
-\emph{Solution. }Recall that \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} \).
+\emph{Solution.} We proceed as in Exercise 11.
 \begin{itemize}
-    \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} = argmin_z\{\max\{0, -z\} + \frac{1}{2} \|z - x\|^2 \} \).
-
-    Using that
+    \item On the one hand, we have \( \operatorname{prox}_f(x) = \arg\min_z\{\max\{0, -z\} + \frac{1}{2} (z - x)^2 \} = \arg\min_z h(z) \). We are looking for the minimizer of the function
         \[
-             \begin{cases}
-                argmin_z\{\frac{1}{2} \|z - x\|^2 \} = x &\text{ if } z \geq 0\\
-                argmin_z\{-z + \frac{1}{2} \|z - x\|^2 \} = x + 1 &\text{ if } z < 0\\
+             h(z) = \begin{cases}
+                 \frac{1}{2} (z - x)^2, &\text{ if } z \geq 0,\\
+                -z + \frac{1}{2} (z - x)^2, &\text{ if } z \leq 0.\\
              \end{cases}
         \]
+        If the minimizer is attained at $z> 0$, then clearly $z=x$, meaning that $\operatorname{prox}_f(x)=x$ for $x\geq 0$. If it is attained at $z<0$, we have:
         \[
-             prox_f(x) = x
+        0=h'(z)= -1 + z - x \implies z = x+1,
         \]
-    \item \( prox_f(x) = argmin_z\{f(z) + \frac{1}{2} \|z - x\|^2 \} = argmin_z\{\max\{0, |z| - \epsilon\} + \frac{1}{2} \|z - x\|^2 \} \)
-
-    Using that
+        which again is easily shown to be a genuine minimum ($h''>0$). This implies that $\operatorname{prox}_f(x)=x+1$ for $x< -1$. The value of the proximal at the remaining values must necessarily be the only point of non-differentiability of $h$, namely, $0$. Thus, we have shown that
         \[
-             \begin{cases}
-                argmin_z\{\frac{1}{2} \|z - x\|^2 \} = x &\text{ if } |z| \leq \epsilon\\
-                argmin_z\{|z| - \epsilon + \frac{1}{2} \|z - x\|^2 \} =  &\text{ if }   ||z| > \epsilon\\
+             \operatorname{prox}_f(x)= \begin{cases}
+             x+1, & \text{ if } x\leq -1,\\
+               0, & \text{ if } -1 \leq x \leq 0,\\
+              x, & \text{ if } x \geq 0.
+           \end{cases}
+        \]
+    \item On the other hand, \( \operatorname{prox}_g(x) = \arg\min_z\{\max\{0, |z| -\epsilon\} + \frac{1}{2} (z - x)^2 \} = \arg\min_z h(z) \). In this case, we seek the minimizer of
+        \[
+             h(z)= \begin{cases}
+                \frac{1}{2} (z - x)^2, &\text{ if } |z| \leq \epsilon,\\
+                z - \epsilon + \frac{1}{2} (z - x)^2, &\text{ if }   z \geq \epsilon,\\
+                -z - \epsilon + \frac{1}{2} (z - x)^2, &\text{ if }   z \leq -\epsilon.
              \end{cases}
         \]
-        \[
-             prox_f(x) = x
-        \]
 
+Following the same reasoning as before, it is immediate to see that $\operatorname{prox}_g(x)=x$ for $|x|<\epsilon$. If the minimizer is attained when $z>\epsilon$, we have $0=h'(z)=1+z-x$, so $z=x-1$, and $\operatorname{prox}_g(x)=x-1$ for $x>1+\epsilon$. Similarly, $\operatorname{prox}_g(x)=x+1$ for $x< -\epsilon-1$.
+
+For the points of non-differentiability, observe that if $\epsilon<x<1+\epsilon$ the minimizer is attained at $z=\epsilon$, while for $-1-\epsilon<x<\epsilon$ it is attained at $z=-\epsilon$ (a simple check suffices to convince us). Thus, we have
+
+        \[
+             \operatorname{prox}_f(x)= \begin{cases}
+               x+1, & \text{ if } x< - 1 - \epsilon,\\
+               -\epsilon,  & \text{ if } -1-\epsilon<x<\epsilon,\\
+               x, & \text{ if } |x| < \epsilon,\\
+               \epsilon,  & \text{ if } \epsilon < x < 1+\epsilon,\\
+               x-1, & \text{ if } x>1+\epsilon.
+           \end{cases}
+        \]
+        \QED
 \end{itemize}
 
-\textbf{Exercise 14. }\emph{If \( p_1,\dots,p_K \) is a probability distribution, prove that its entropy \( H(p_1, \dots, p_K) = - \sum_{i=1}^K p_i \log p_i\) is a concave function. Show also that its maximum is \( \log K \), attained when \( p_i = \frac{1}{K} \forall i \) }.
+\textbf{Exercise 14. }\emph{If \( (p_1,\dots,p_n) \) is a probability distribution, prove that its entropy \( H(p_1, \dots, p_n) = - \sum_{i=1}^n p_i \log p_i\) is a concave function. Show also that its maximum is \( \log n \), attained when \( p_i = \frac{1}{n}\) for all $i$}.
 
-\emph{Solution. } Given that \( L(p_1,\dots, p_k; \mu) = - \sum_{i=1}^k p_i \log p_i + \mu\left(\sum_{i=1}^k p_i - 1\right) \),
+\emph{Solution. } In the first place, we know that $H$ is twice-differentiable on the open set $(0,1)^n$. Moreover, since
 \[
-     \frac{\partial L}{\partial p_i} = -\log p_i - 1 + \mu \ \forall i=1,\dots,k
+\frac{\partial H}{\partial p_i} = -\log p_i - 1 \quad \text{and} \quad \frac{\partial^2 H}{\partial p_i\partial p_j} = \frac{-1}{p_i}\delta_{ij},
 \]
-Resolvemos \( \begin{cases}
-    \log p_i &= \mu - 1, \quad i=1,\dots,k\\
-    \sum p_i &= 1
-\end{cases}  \implies p_i = e^{\mu - 1} \ forall i\), that is, all \( p_i \) are equal
+we have
+\[
+\operatorname{Hess}(H) = \operatorname{diag}\left\{\frac{-1}{p_i}\right\}_{i=1,\dots,n} \prec 0.
+\]
+
+Since the Hessian is negative definite, $H$ is concave. To solve the constrained optimization problem, we consider the corresponding Lagrangian
+\[ L(p_1,\dots, p_n; \mu) = - \sum_{i=1}^n p_i \log p_i + \mu\left(\sum_{i=1}^n p_i - 1\right),\]
+
+where the restriction $\sum p_i=1$ appears because the $p_i$ are a probability distribution. Now, we have
+\[
+     \frac{\partial L}{\partial p_i} = -\log p_i - 1 + \mu, \ \  i=1,\dots,n \quad \text{and} \quad \frac{\partial L}{\partial \mu} =\sum_{i=1}^n p_i - 1.
+\]
+
+To find the points where all derivatives vanish simultaneously, we have to solve the system
+\[\begin{cases}
+    \log p_i &= \mu - 1, \quad i=1,\dots,n,\\
+    \sum p_i &= 1.
+\end{cases}\]
+
+Looking at the first equation, since the right hand side doesn't depend on $i$, it holds that $p_i=p_j= e^{\mu - 1}\geq 0$ for all $i,j$, that is, all the \( p_i \) are equal. But since they must add up to $1$, the only possibility is that $p_i=1/n$ for all $i$. The restriction $p_i\geq 0$ is clearly satisfied, and since $H$ is concave the resulting value is indeed a maximum, whose value is
+\[
+H(1/n,\dots, 1/n) = -\frac{1}{n}\sum_{i=1}^n \log{\frac{1}{n}} = \frac{n\log n}{n}=\log n.
+\]
 
 \textbf{Exercise 15. }\emph{We have worked out the dual problem for the soft SVC problem. Do the same for the simpler \textbf{hard} SVC problem}
 \[
