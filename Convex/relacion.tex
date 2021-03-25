@@ -275,9 +275,33 @@ Fix $x\in S$ and let $c\in \partial f(x) + \partial g(x)$. We can decompose it a
 &\geq f(x) + g(x) + c_1(x'-x) + c_2(x'-x)\\
 &= (f+g)(x) + c(x'-x),
 \end{align*}
-so that $c\in \partial(f+g)(x)$. The proof of the other inclusion can be consulted in the book \textit{Convex Analysis} by Rockafellar himself\footnote{Theorem 23.8 in Rockafellar, R. T. (1997). \textit{Convex analysis} (Vol. 36), p. 223. Princeton University Press.}, in which ...
+so that $c\in \partial(f+g)(x)$. The proof of the other inclusion can be consulted in the book \textit{Convex Analysis} by Rockafellar himself\footnote{Theorem 23.8 in Rockafellar, R. T. (1997). \textit{Convex analysis} (Vol. 36), p. 223. Princeton University Press.}, but it is somewhat technical and it utilizes previous results. We found an alternative proof in simpler terms in Prof. Tieyong's lecture notes for a course in Optimization Theory at the Chinese University of Hong Kong\footnote{\url{https://www.math.cuhk.edu.hk/course_builder/1819/math4230/subgrad.pdf}}, which we briefly summarize below.
 
-Prior to consulting any references we tried to prove the theorem by ourselves, and came up with the following incomplete proof. ......\\
+Fixing $x$ and assuming $c\in \partial(f+g)(x)$, two auxiliary sets are defined, namely
+\[
+\Lambda_f := \{(x'-x, t): \ t > f(x')-f(x) - c(x'-x)\}
+\]
+\[
+\Lambda_g := \{(x'-x, t): \ -t \geq g(x')-g(x)\}.
+\]
+
+They are easily shown to be disjoint, non-empty and convex, so the separation theorem applies and there exists a hyperplane defined by coefficients $a$ and $b$ that separates them. Next, $b$ is shown to be negative via contradiction, and then the desired decomposition is defined as
+\[
+c_2=\frac{-a}{b},\quad c_1=c-c_2.
+\]
+Lastly, these coefficients are shown to verify $c_1\in\partial f(x)$ and $c_2\in\partial g(x)$.
+
+Prior to consulting any references we tried to prove the theorem by ourselves, and came up with the following incomplete proof. We defined a weighted decomposition of the coefficient $c$ as
+$$
+c_1 = \frac{f(x') - f(x)}{f(x') - f(x) + g(x') - g(x)} c \quad \text{ and } \quad c_2 = \frac{g(x') - g(x)}{f(x') - f(x) + g(x') - g(x)} c.
+$$
+
+It is clear that $c_1 + c_2 = c$, and using the hypothesis $ c(x' - x) \leq f(x') - f(x) + g(x') - g(x)$ we arrive at
+$$
+    c_1(x'-x) = \frac{f(x') - f(x)}{f(x') - f(x) + g(x') - g(x)} c(x'-x) \leq f(x') - f(x),
+$$
+
+and the analogous holds for $c_2$. The main problem here is that this decomposition is only valid when $f(x') - f(x) + g(x') - g(x) \neq 0$, which at first glance doesn't necessarily hold for all $x,x'$.\\
 
 \textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 11. }\emph{Compute the proximal of \( f(x) = 0 \) and of \( g(x) = \frac{1}{2}\|x\|^2 \).}
@@ -314,7 +338,7 @@ The strategy will be to compute and minimize this expression in each case.
 \textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 13. }\emph{Compute the proximals of the hinge \( f(x) = max\{0, -x\}  \) and the \( \epsilon \)-insensitive \( g(x)=max\{0, |x| - \epsilon\} \) loss functions}.
 
-\emph{Solution.} We proceed as in Exercise 11.
+\emph{Solution.} We proceed as in Exercise 11. Since both losses are convex and defined on (the open set) $\mathbb R$, we know that the proximal operator is well defined.
 \begin{itemize}
     \item On the one hand, we have \( \operatorname{prox}_f(x) = \arg\min_z\{\max\{0, -z\} + \frac{1}{2} (z - x)^2 \} = \arg\min_z h(z) \). We are looking for the minimizer of the function
         \[
@@ -327,7 +351,7 @@ The strategy will be to compute and minimize this expression in each case.
         \[
         0=h'(z)= -1 + z - x \implies z = x+1,
         \]
-        which again is easily shown to be a genuine minimum ($h''>0$). This implies that $\operatorname{prox}_f(x)=x+1$ for $x< -1$. The value of the proximal at the remaining values must necessarily be the only point of non-differentiability of $h$, namely, $0$. Thus, we have shown that
+        which implies that $\operatorname{prox}_f(x)=x+1$ for $x< -1$. The value of the proximal at the remaining values must necessarily be the only point of non-differentiability of $h$, namely, $0$. Thus, we have shown that
         \[
              \operatorname{prox}_f(x)= \begin{cases}
              x+1, & \text{ if } x\leq -1,\\
@@ -346,7 +370,7 @@ The strategy will be to compute and minimize this expression in each case.
 
 Following the same reasoning as before, it is immediate to see that $\operatorname{prox}_g(x)=x$ for $|x|<\epsilon$. If the minimizer is attained when $z>\epsilon$, we have $0=h'(z)=1+z-x$, so $z=x-1$, and $\operatorname{prox}_g(x)=x-1$ for $x>1+\epsilon$. Similarly, $\operatorname{prox}_g(x)=x+1$ for $x< -\epsilon-1$.
 
-For the points of non-differentiability, observe that if $\epsilon<x<1+\epsilon$ the minimizer is attained at $z=\epsilon$, while for $-1-\epsilon<x<\epsilon$ it is attained at $z=-\epsilon$ (a simple check suffices to convince us). Thus, we have
+For the points of non-differentiability, observe that if $\epsilon<x<1+\epsilon$ the minimizer is attained at $z=\epsilon$ (the only possible value), while for $-1-\epsilon<x<\epsilon$ it is attained at $z=-\epsilon$. Thus, we have
 
         \[
              \operatorname{prox}_f(x)= \begin{cases}
@@ -360,6 +384,8 @@ For the points of non-differentiability, observe that if $\epsilon<x<1+\epsilon$
         \QED
 \end{itemize}
 
+\vspace{0.5em}
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
 \textbf{Exercise 14. }\emph{If \( (p_1,\dots,p_n) \) is a probability distribution, prove that its entropy \( H(p_1, \dots, p_n) = - \sum_{i=1}^n p_i \log p_i\) is a concave function. Show also that its maximum is \( \log n \), attained when \( p_i = \frac{1}{n}\) for all $i$}.
 
 \emph{Solution. } In the first place, we know that $H$ is twice-differentiable on the open set $(0,1)^n$. Moreover, since
@@ -383,20 +409,62 @@ To find the points where all derivatives vanish simultaneously, we have to solve
 \[\begin{cases}
     \log p_i &= \mu - 1, \quad i=1,\dots,n,\\
     \sum p_i &= 1.
-\end{cases}\]
+\end{cases}
+\]
 
 Looking at the first equation, since the right hand side doesn't depend on $i$, it holds that $p_i=p_j= e^{\mu - 1}\geq 0$ for all $i,j$, that is, all the \( p_i \) are equal. But since they must add up to $1$, the only possibility is that $p_i=1/n$ for all $i$. The restriction $p_i\geq 0$ is clearly satisfied, and since $H$ is concave the resulting value is indeed a maximum, whose value is
 \[
 H(1/n,\dots, 1/n) = -\frac{1}{n}\sum_{i=1}^n \log{\frac{1}{n}} = \frac{n\log n}{n}=\log n.
 \]
+\QED
 
-\textbf{Exercise 15. }\emph{We have worked out the dual problem for the soft SVC problem. Do the same for the simpler \textbf{hard} SVC problem}
+\vspace{1em}
+\textit{Luis Antonio: 50\%}, \ \textit{Antonio: 50\%}\\
+\textbf{Exercise 15. }\emph{Work out the dual problem for the hard SVC problem}
 \[
-\min_{w,b} \frac{1}{2}\|w\|^2
+\min_{w,b} \left\{\frac{1}{2}\|w\|^2\right\}
 \]
-\emph{subject to \( y^p(wx^p + b) \geq 1 \). What are here the KKT conditions? }
+\emph{subject to \( y_p(w^Tx_p + b) \geq 1 \). What are the KKT conditions? }
 
+\textit{Solution.} In this case, the Lagrangian is
+\[
+L(w, b; \alpha)=\frac{1}{2}\|w\|^2 + \sum_{p} \alpha_p(1-y_p(w^Tx_p+b))
+\]
 
+with $\alpha_p\geq 0$. To get the dual function we solve $\nabla_w L = 0$ and $\frac{\partial L}{\partial b}=0$, which yields:
 
+\[
+0=\nabla_w L = w - \sum_p \alpha_p y_px_p \implies w = \sum_p \alpha_p y_px_p,
+\]
+\[
+0=\frac{\partial L}{\partial b} = \sum_{p} \alpha_p y_p.
+\]
 
+Substituting both expressions back in the Lagrangian, we arrive at the dual function
+\begin{align*}
+\Theta(\alpha)&= \frac{1}{2} \sum_{p, q}\alpha_p \alpha_q y_p y_q x_p^T x_q + \sum_p \alpha_p - \sum_{p,q} \alpha_p \alpha_q y_p y_q x_p^T x_q + b \overbrace{\sum_p \alpha_py_p}^{0}\\
+&= -\frac{1}{2}\sum_{p,q} \alpha_p \alpha_q y_p y_q x_p^T x_q + \sum_p \alpha_p\\
+&= -\frac{1}{2}\alpha^TQ\alpha + \alpha^T\mathbf{1},
+\end{align*}
+
+subject to $\sum_p \alpha_p y_p=0$ and $\alpha_p\geq 0$ for all $p$. In the above expression, $Q$ is the symmetric matrix given by $Q_{pq}=y_py_qx_p^Tx_q$, and $\mathbf{1}=(1,\dots,1)^T$. Flipping the sign to get a minimization problem, the dual problem has the following expression:
+\[
+
+\[
+\min_{\alpha\in\mathbb R^N} \left\{\frac{1}{2}\alpha^T Q \alpha - \alpha^T \mathbf{1}\right\} \quad \text{subject to} \quad \begin{cases}
+  \alpha^Ty=0,\\
+  \alpha_p \geq 0, & p=1,\dots, N.
+\end{cases}
+\]
+
+The KKT conditions in this case are:
+\[
+\begin{cases}
+\displaystyle  w^* = \sum_{p}\alpha^*_p y_p x_p,\\
+\alpha_p^*(1 - y_p(w^Tx_p + b)) =0, & p=1,\dots,N.
+\end{cases}
+\]
+
+The first one allows us to recover the primal solution from the dual one, and the rest are useful to define the support vectors: those points $x_p$ for which $\alpha^*_p>0$ must necessarily be in one of the supporting hyperplanes $w^Tx_p + b=\pm 1$ (assuming labels $y_p=\pm 1$). Looking at the first equation again, we can also say that the points for which $\alpha^*_p=0$ have no impact on the model.
+\QED
 \end{document}
